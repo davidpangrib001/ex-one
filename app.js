@@ -49,7 +49,7 @@ app.use('/delete/:id', async (req, res) => {
     }).then((result) => {
         if (result == null) return res.status(404).json({
             status: false,
-            message: "ID not found"
+            message: "ID Tidak Di Temukan!"
         })
         if (req.method == "POST") {
             db.findOneAndDelete({
@@ -57,11 +57,11 @@ app.use('/delete/:id', async (req, res) => {
             }).then((result) => {
                 if (result == null) return res.status(404).json({
                     status: false,
-                    message: "ID not found"
+                    message: "ID Tidak Ditemukan!"
                 })
                 else res.status(200).json({
                     status: true,
-                    message: "Success delete short url"
+                    message: "Sukses Membuang Short URL Anda"
                 })
             })
         } else res.sendFile(__dirname + '/public/delete.html')
@@ -83,12 +83,12 @@ app.post('/create', async (req, res) => {
 
     if (!url) return res.status(400).json({
         status: false,
-        message: "Masukkan parameter url"
+        message: "Masukin Link Agar Menjadi Parameter"
     })
 
     if (!isUrl(url)) return res.status(400).json({
         status: false,
-        message: "Harap masukkan url parameter yang valid"
+        message: "Masukan Link Yang Valid!"
     })
     const id = costum ? costum : makeid(6)
     const delete_id = makeid(18)
@@ -97,7 +97,7 @@ app.post('/create', async (req, res) => {
     })
     if (check) return res.status(400).json({
         status: false,
-        message: "Id tersebut sudah ada, silahkan coba lagi atau ganti dengan yang lain"
+        message: "ID tersebut sudah ada, silahkan coba lagi atau ganti dengan yang lain"
     })
 
     db.insert({
@@ -106,7 +106,7 @@ app.post('/create', async (req, res) => {
         delete: delete_id
     }).then(() => res.status(200).json({
         status: true,
-        message: "Created by aqulzz",
+        message: "Created by David",
         result: {
             id,
             delete: delete_id
@@ -115,7 +115,7 @@ app.post('/create', async (req, res) => {
         console.log(err)
         res.status(500).json({
             status: false,
-            message: "Internal server error"
+            message: "Terjadi Error Pada Sistem"
         })
     })
 })
@@ -124,7 +124,7 @@ app.post('/create', async (req, res) => {
 app.use(function (req, res, next) {
     res.status(404).json({
         status: false,
-        message: "Page not found"
+        message: "Halaman Tidak Di Temukan Atau Mungkin Anda Tersesat"
     })
 })
 
